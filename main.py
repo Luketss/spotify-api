@@ -40,18 +40,25 @@ class Spotify:
     def __init__(self, token):
         self.token = token
 
-    def get_search_track(self, track):
+    def get_id_track(self, track):
         route = 'https://api.spotify.com/v1/search'
-        query = f"?q={track}&type=track&limit=1"
-        
+        query = f"?q={track}&type=track&limit=1"  
         url = route + query
-
         r = requests.get(url=url, headers= {'Authorization': 'Bearer  ' + Spotify.token})
         json_result = json.loads(r.content)
         track_id  = json_result['tracks']['items'][0]['id']
         return track_id
 
+    def get_search_track(self, id):
+        route = f'https://api.spotify.com/v1/tracks/{id}'
+        url = route
+        r = requests.get(url=url, headers= {'Authorization': 'Bearer  ' + Spotify.token})
+        json_result = json.loads(r.content)
+        track = json_result
+        return track
+
 spotify = Spotify(TOKEN)
-print(spotify.get_search_track('downwithme'))
+track_id = spotify.get_id_track('downwithme')
+print(spotify.get_search_track(track_id))
 
 
