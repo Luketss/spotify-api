@@ -13,7 +13,7 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
 class Spotify:
     def __init__(self, client_id, client_secret):
-        self.client_id = (client_id,)
+        self.client_id = client_id
         self.client_secret = client_secret
         self.token = self.get_token()
 
